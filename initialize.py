@@ -1,21 +1,30 @@
 import numpy as np
-def createNNetwork(nb_layers, input_size, output_size):
+import seaborn as sns
 
-    # The plan is to first create a neural netwok with only the input and output sizes changing.
+
+def createNNetwork(input_size, output_size):
+
+    # The plan is to first create a neural network with only the input and output sizes changing.
     # I'll make it more complex later
-    # i intend to first test 28*28 images (MINST database)
+    # I intend to first test 28*28 images (MNIST database)
     hidden = 16  # for now there will be two hidden layers of 16 neurons.
-    W1 = np.random.random((hidden, input_size))
-    B1 = np.random.random((16, 1))
+    w1 = np.random.random((hidden, input_size))
+    b1 = np.random.random((16, 1))
 
-    W2 = np.random.random((hidden, hidden))
-    B2 = np.random.random((16, 1))
+    w2 = np.random.random((hidden, hidden))
+    b2 = np.random.random((16, 1))
 
-    W3 = np.random.random((output_size, hidden))
-    B3 = np.random.random((output_size, 1))
+    w3 = np.random.random((output_size, hidden))
+    b3 = np.random.random((output_size, 1))
 
     # with this approach we are building the arrays for the weights and biases of each layer
 
-    return W1, W2, W3, B1, B2, B3
+    return w1, w2, w3, b1, b2, b3
 
 
+def array_for(x):
+    return np.array([xi/255 for xi in x])
+
+
+k = np.random.random_integers(0, 255, (28, 28))
+input_init = array_for(k)
