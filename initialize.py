@@ -1,7 +1,14 @@
 import numpy as np
+import pandas as pd
 import seaborn as sns
 import math
+from matplotlib import pyplot as plt
+from pathlib import Path
 
+import pandas as pd
+
+# Step 1: Read the CSV file into a DataFrame
+df = pd.read_csv('data.csv')  # this is our csv
 
 def createNNetwork(input_size, output_size):
 
@@ -30,6 +37,7 @@ def sigma_m(x):
 
 
 def forwardpropagation(input, w1, w2, w3, b1, b2, b3):
+    # looking into dot function will be useful
     print('in function')
     l1 = np.matmul(w1, input) + b1
     print('l1: ', l1.shape)
@@ -38,6 +46,7 @@ def forwardpropagation(input, w1, w2, w3, b1, b2, b3):
     print('l2: ', l2.shape)
     s2 = sigma_m(l2)
     l3 = np.matmul(w3, s2) + b3
+    # last activation function should be softmax
     print('l3: ', l3.shape)
     s3 = sigma_m(l3)
     return s3
@@ -64,3 +73,39 @@ print('b2: ', b2.shape)
 print('b3: ', b3.shape)
 sx = forwardpropagation(input_in, w1, w2, w3, b1, b2, b3)
 print(sx)
+
+def data_treatement(csv):
+    # in this function, we assume we get a csv file, and want to split it in train and test
+    # Shuffle the DataFrame
+    df_shuffled = df.sample(frac=1, random_state=42).reset_index(drop=True)
+
+    # Split the DataFrame into training and testing sets
+    train_ratio = 0.8
+    train_size = int(len(df_shuffled) * train_ratio)
+
+    train_data = df_shuffled[:train_size]
+    test_data = df_shuffled[train_size:]
+    return train_data, test_data
+
+
+def split_into_batches(df, batch_size):
+    """Split a DataFrame into batches of a specified size."""
+    num_batches = len(df) // batch_size + (1 if len(df) % batch_size != 0 else 0)
+    # This is useful to make the calculus directly rather than using an if else
+    return [df[i * batch_size:(i + 1) * batch_size] for i in range(num_batches)]
+
+def trainning(train_data, batch_size, learning_rate, num_epoch, network):
+    # this function should deal with the repetion process
+    # to process each batch, be need to separate our data in batches
+    # we are going to assume the data has been checked before and already shuffled
+    batches = split_into_batches(train_data, batch_size)
+
+
+    for i in range(num_epoch):
+        # the whole process need to be repeated times the number of epochs
+        # now, in here, we only need to figure how to process each batch
+        for j in range(len(batches)):
+
+            # in here the magic of backpropagation happens.
+
+    return 5
