@@ -41,10 +41,10 @@ def one_hot(y):
     return one_hot_y
 
 
-test_data, train_data, test_labels, train_labels = data_treatment(data)
+"""test_data, train_data, test_labels, train_labels = data_treatment(data)
 test_labels_e = one_hot(test_labels)
 train_labels_e = one_hot(train_labels)
 print('train labels shape: ', train_labels_e.shape)
 print('train labels: ', train_labels_e)
 print('train data shape: ', train_data.shape)
-print('train data: ', train_data)
+print('train data: ', train_data)"""

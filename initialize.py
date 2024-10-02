@@ -8,26 +8,6 @@ from pathlib import Path
 p = 784
 
 
-def createNNetwork(input_size, output_size):
-
-    # The plan is to first create a neural network with only the input and output sizes changing.
-    # I'll make it more complex later
-    # I intend to first test 28*28 images (MNIST database)
-    hidden = 16  # for now there will be two hidden layers of 16 neurons.
-    w1 = np.random.random((hidden, input_size))
-    b1 = np.random.random((16, 1))
-
-    w2 = np.random.random((hidden, hidden))
-    b2 = np.random.random((16, 1))
-
-    w3 = np.random.random((output_size, hidden))
-    b3 = np.random.random((output_size, 1))
-
-    # with this approach we are building the arrays for the weights and biases of each layer
-
-    return w1, w2, w3, b1, b2, b3
-
-
 def sigma_m(x):
     # return np.array([(1 / (1 + math.exp(xi))) for xi in x])
     # This can't work, because I have an array of arrays
@@ -43,18 +23,47 @@ def relu(x):
     return np.maximum(0, x)
 
 
+def createNNetwork(input_size, output_size):
+
+    # The plan is to first create a neural network with only the input and output sizes changing.
+    # I'll make it more complex later
+    # I intend to first test 28*28 images (MNIST database)
+    hidden = 16  # for now there will be two hidden layers of 16 neurons.
+    w1 = np.random.random((hidden, input_size))
+    b1 = np.random.random((hidden, 1))
+
+    w2 = np.random.random((hidden, hidden))
+    b2 = np.random.random((hidden, 1))
+
+    w3 = np.random.random((output_size, hidden))
+    print('first: ', w3.shape)
+    b3 = np.random.random((output_size, 1))
+
+    # with this approach we are building the arrays for the weights and biases of each layer
+
+    return w1, w2, w3, b1, b2, b3
+
+
 def forwardpropagation(input, w1, w2, w3, b1, b2, b3):
     # looking into dot function will be useful
     # apparently matmul is fine here
     print('in function')
+    print('input shape: ', input.shape)
+    print('w1: ', w1.shape)
+    print('b1: ', b1.shape)
     l1 = np.matmul(w1, input) + b1
     print('l1: ', l1.shape)
     s1 = relu(l1)
 
+    print('w2: ', w2.shape)
+    print('b2: ', b2.shape)
     l2 = np.matmul(w2, s1) + b2
-    print('l2: ', l2.shape)
+    print('l2 shape: ', l2.shape)
     s2 = relu(l2)
+    print('S2 shape: ', s2.shape)
 
+    print('w3: ', w3.shape)
+    print('b3: ', b3.shape)
     l3 = np.matmul(w3, s2) + b3
     # last activation function should be softmax
     print('l3: ', l3.shape)
@@ -77,30 +86,16 @@ def add_random():
     return input_in
 
 
-w1, w2, w3, b1, b2, b3 = createNNetwork(p, 10)
+"""w1, w2, w3, b1, b2, b3 = createNNetwork(p, 10)
 print('w1: ', w1.shape)
 print('w2: ', w2.shape)
 print('w3: ', w3.shape)
 print('b1: ', b1.shape)
 print('b2: ', b2.shape)
-print('b3: ', b3.shape)
-sx = forwardpropagation(input_in, w1, w2, w3, b1, b2, b3)
-print(sx)  # up until here it works how I wanted it to
+print('b3: ', b3.shape)"""
+# sx = forwardpropagation(input_in, w1, w2, w3, b1, b2, b3)
+# print(sx)  # up until here it works how I wanted it to
 
 
 
-def trainning(train_data, batch_size, learning_rate, num_epoch, network):
-    a =0
-    # this function should deal with the repetion process
-    # to process each batch, be need to separate our data in batches
-    # we are going to assume the data has been checked before and already shuffled
-    batches = split_into_batches(train_data, batch_size)
 
-    for i in range(num_epoch):
-        # the whole process need to be repeated times the number of epochs
-        # now, in here, we only need to figure how to process each batch
-        for j in range(len(batches)):
-            # in here the magic of backpropagation happens.
-            a = a + 2
-
-    return 5
