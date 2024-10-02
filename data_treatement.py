@@ -4,6 +4,7 @@ import numpy as np
 # Step 1: Read the CSV file into a DataFrame
 df = pd.read_csv('mnist_train.csv')  # this is our csv
 data = np.array(df)
+m, n = data.shape
 np.random.shuffle(data)
 
 
@@ -16,7 +17,6 @@ def split_into_batches(df, batch_size):
 
 
 def data_treatment(data):
-    m, n = data.shape
     # in this function, we assume we get a csv file, and want to split it in train and test
     # Shuffle the DataFrame
     # df_shuffled = df.sample(frac=1, random_state=42).reset_index(drop=True)
