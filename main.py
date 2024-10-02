@@ -39,7 +39,6 @@ def get_accuracy(predictions, Y):
 
 
 def training(training_data, training_labels, batch_size, learning_rate, num_epoch, w1, w2, w3, B1, B2, B3):
-    a = 0
     W1, b1, W2, b2, W3, b3 = w1, B1, w2, B2, w3, B3
     print('b3: ', b3.shape)
     # this function should deal with the repetion process
