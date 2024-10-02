@@ -45,18 +45,22 @@ def relu(x):
 
 def forwardpropagation(input, w1, w2, w3, b1, b2, b3):
     # looking into dot function will be useful
+    # apparently matmul is fine here
     print('in function')
     l1 = np.matmul(w1, input) + b1
     print('l1: ', l1.shape)
-    s1 = sigma_m(l1)
+    s1 = relu(l1)
+
     l2 = np.matmul(w2, s1) + b2
     print('l2: ', l2.shape)
-    s2 = sigma_m(l2)
+    s2 = relu(l2)
+
     l3 = np.matmul(w3, s2) + b3
     # last activation function should be softmax
     print('l3: ', l3.shape)
-    s3 = sigma_m(l3)
-    return s3
+    s3 = softmax(l3)
+    # we need to return everything so that we can do back propagation correctly.
+    return l1, s1, l2, s2, l3, s3
 
 
 def array_for(x):

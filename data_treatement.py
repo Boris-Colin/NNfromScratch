@@ -7,6 +7,14 @@ data = np.array(df)
 np.random.shuffle(data)
 
 
+def split_into_batches(df, batch_size):
+    """Split a DataFrame into batches of a specified size."""
+    num_batches = len(df) // batch_size + (1 if len(df) % batch_size != 0 else 0)
+    # This is useful to make the calculus directly rather than using an if else
+    # I keep it here, but I think it should be done during gradient descent rather than here
+    return [df[i * batch_size:(i + 1) * batch_size] for i in range(num_batches)]
+
+
 def data_treatment(data):
     m, n = data.shape
     # in this function, we assume we get a csv file, and want to split it in train and test
@@ -26,20 +34,17 @@ def data_treatment(data):
     return x_dev, X_train, y_dev, Y_train
 
 
-def one_hot(Y):
-    one_hot_Y = np.zeros((Y.size, Y.max() + 1))
-    one_hot_Y[np.arange(Y.size), Y] = 1
-    one_hot_Y = one_hot_Y.T
-    return one_hot_Y
-
-
-def split_into_batches(df, batch_size):
-    """Split a DataFrame into batches of a specified size."""
-    num_batches = len(df) // batch_size + (1 if len(df) % batch_size != 0 else 0)
-    # This is useful to make the calculus directly rather than using an if else
-    return [df[i * batch_size:(i + 1) * batch_size] for i in range(num_batches)]
+def one_hot(y):
+    one_hot_y = np.zeros((y.size, y.max() + 1))
+    one_hot_y[np.arange(y.size), y] = 1
+    one_hot_y = one_hot_y.T
+    return one_hot_y
 
 
 test_data, train_data, test_labels, train_labels = data_treatment(data)
-batches = split_into_batches(train_data, 256)
-print('batches shape: ', batches)
+test_labels_e = one_hot(test_labels)
+train_labels_e = one_hot(train_labels)
+print('train labels shape: ', train_labels_e.shape)
+print('train labels: ', train_labels_e)
+print('train data shape: ', train_data.shape)
+print('train data: ', train_data)
