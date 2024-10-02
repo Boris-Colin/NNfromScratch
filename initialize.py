@@ -34,6 +34,11 @@ def sigma_m(x):
     return 1 / (1 + np.exp(-x))
 
 
+def softmax(Z):
+    A = np.exp(Z) / sum(np.exp(Z))
+    return A
+
+
 def relu(x):
     return np.maximum(0, x)
 
