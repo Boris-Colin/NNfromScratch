@@ -87,5 +87,4 @@ W1, b1, W2, b2, W3, b3 = training(train_data, train_labels_e,2, 0.01, 100,
 
 test_prediction(0, W1, b1, W2, b2, W3, b3)
 test_prediction(1, W1, b1, W2, b2, W3, b3)
-test_prediction(2, W1, b1, W2, b2, W3, b3)
-test_prediction(3, W1, b1, W2, b2, W3, b3)
+
