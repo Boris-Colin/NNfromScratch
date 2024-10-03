@@ -82,7 +82,7 @@ def training(training_data, training_labels, batch_size, learning_rate, num_epoc
     return W1, b1, W2, b2, W3, b3
 
 
-W1, b1, W2, b2, W3, b3 = training(train_data, train_labels_e,2, 0.01, 100,
+W1, b1, W2, b2, W3, b3 = training(train_data, train_labels_e,2, 0.10, 300,
                                   weights1, weights2, weights3, bias1, bias2, bias3)
 
 test_prediction(0, W1, b1, W2, b2, W3, b3)
