@@ -13,8 +13,10 @@ def sigma_m(x):
 
 
 def softmax(Z):
-    A = np.exp(Z) / sum(np.exp(Z))
-    return A
+    expZ = np.exp(Z - np.max(Z))
+    # we changed the function to avoid overflow
+    # we add the 1e-8 at the end to avoid underflow
+    return expZ / (np.sum(expZ, axis=0, keepdims=True) + 1e-8)
 
 
 def relu(x):
@@ -43,7 +45,6 @@ def createNNetwork(input_size, output_size):
 def forwardpropagation(input, w1, w2, w3, b1, b2, b3):
     # looking into dot function will be useful
     # apparently matmul is fine here
-    print('in function')
     l1 = np.matmul(w1, input) + b1
     s1 = relu(l1)
 

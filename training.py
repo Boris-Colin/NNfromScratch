@@ -3,20 +3,24 @@ from data_treatement import m
 
 
 def relu_deriv(Z):
-    return Z > 0
+    # before it returned a boolean, which was fine in most cases, but this is more accurate
+    return np.where(Z > 0, 1, 0)
 
 
 def backward_prop(Z1, A1, Z2, A2, Z3, A3, w1, w2, w3, train_data, train_labels_e):
-    dZ3 = A3 - train_labels_e
-    dW3 = 1 / m * dZ3.dot(A2.T)
-    db3 = 1 / m * np.sum(dZ3)
-    dZ2 = w3.T.dot(dZ3) * relu_deriv(Z2)
-    # this is for the two first layers. I don't need to change it too much.
-    dW2 = 1 / m * dZ2.dot(A1.T)
-    db2 = 1 / m * np.sum(dZ2)
-    dZ1 = w2.T.dot(dZ2) * relu_deriv(Z1)
-    dW1 = 1 / m * dZ1.dot(train_data.T)  # need to change X
-    db1 = 1 / m * np.sum(dZ1)
+    dZ3 = A3 - train_labels_e  # (output_size, m)
+    dW3 = (1 / m) * np.dot(dZ3, A2.T)  # (output_size, hidden)
+    db3 = (1 / m) * np.sum(dZ3, axis=1, keepdims=True)  # (output_size, 1)
+
+    dA2 = np.dot(w3.T, dZ3)  # (hidden, m)
+    dZ2 = dA2 * relu_deriv(Z2)  # (hidden, m)
+    dW2 = (1 / m) * np.dot(dZ2, A1.T)  # (hidden, hidden)
+    db2 = (1 / m) * np.sum(dZ2, axis=1, keepdims=True)  # (hidden, 1)
+
+    dA1 = np.dot(w2.T, dZ2)  # (hidden, m)
+    dZ1 = dA1 * relu_deriv(Z1)  # (hidden, m)
+    dW1 = (1 / m) * np.dot(dZ1, train_data.T)  # (hidden, input_size)
+    db1 = (1 / m) * np.sum(dZ1, axis=1, keepdims=True)
     return dW1, db1, dW2, db2, dW3, db3
 
 

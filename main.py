@@ -61,10 +61,9 @@ def test_prediction(index, W1, b1, W2, b2, W3, b3):
 
 def training(training_data, training_labels, batch_size, learning_rate, num_epoch, w1, w2, w3, B1, B2, B3):
     W1, b1, W2, b2, W3, b3 = w1, B1, w2, B2, w3, B3
-    # print('b3: ', b3.shape)
     # this function should deal with the repetion process
     # to process each batch, be need to separate our data in batches
-    # we are going to assume the data has been checked before and already shuffled
+    # the data has been checked before and already shuffled
     for i in range(num_epoch):
         # the whole process need to be repeated times the number of epochs
         # now, in here, we only need to figure how to process each batch
@@ -73,16 +72,17 @@ def training(training_data, training_labels, batch_size, learning_rate, num_epoc
         # print('Forward propagation')
         dW1, db1, dW2, db2, dW3, db3 = backward_prop(z1, a1, z2, a2, z3, a3, W1, W2, W3, training_data, training_labels)
         W1, b1, W2, b2, W3, b3 = update_params(W1, b1, W2, b2, W3, b3, dW1, db1, dW2, db2, dW3, db3, learning_rate)
-        print('epoch number ' + str(i) + ' completed')
+
         if i % 8 == 0:
             print('Iteration: ', i/8)
             predictions = get_predictions(a3)
+            print('Accuracy : -----------------------------')
             print(get_accuracy(predictions, training_labels))
 
     return W1, b1, W2, b2, W3, b3
 
 
-W1, b1, W2, b2, W3, b3 = training(train_data, train_labels_e,2, 0.10, 300,
+W1, b1, W2, b2, W3, b3 = training(train_data, train_labels_e,2, 0.005, 200,
                                   weights1, weights2, weights3, bias1, bias2, bias3)
 
 test_prediction(0, W1, b1, W2, b2, W3, b3)
