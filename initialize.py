@@ -26,14 +26,14 @@ def createNNetwork(input_size, output_size):
     # I'll make it more complex later
     # I intend to first test 28*28 images (MNIST database)
     hidden = 16  # for now there will be two hidden layers of 16 neurons.
-    w1 = np.random.rand(hidden, input_size)
-    b1 = np.random.rand(hidden, 1)
+    w1 = np.random.rand(hidden, input_size) - 0.5
+    b1 = np.random.rand(hidden, 1) - 0.5
 
-    w2 = np.random.rand(hidden, hidden)
-    b2 = np.random.rand(hidden, 1)
+    w2 = np.random.rand(hidden, hidden) - 0.5
+    b2 = np.random.rand(hidden, 1) - 0.5
 
-    w3 = np.random.rand(output_size, hidden)
-    b3 = np.random.rand(output_size, 1)
+    w3 = np.random.rand(output_size, hidden) - 0.5
+    b3 = np.random.rand(output_size, 1) - 0.5
 
     # with this approach we are building the arrays for the weights and biases of each layer
 
