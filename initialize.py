@@ -3,8 +3,6 @@ import pandas as pd
 import seaborn as sns
 import math
 
-from pathlib import Path
-
 p = 784
 
 
@@ -48,25 +46,14 @@ def forwardpropagation(input, w1, w2, w3, b1, b2, b3):
     # looking into dot function will be useful
     # apparently matmul is fine here
     print('in function')
-    # print('input shape: ', input.shape)
-    # print('w1: ', w1.shape)
-    # print('b1: ', b1.shape)
     l1 = np.matmul(w1, input) + b1
-    # print('l1: ', l1.shape)
     s1 = relu(l1)
 
-    # print('w2: ', w2.shape)
-    # print('b2: ', b2.shape)
     l2 = np.matmul(w2, s1) + b2
-    # print('l2 shape: ', l2.shape)
     s2 = relu(l2)
-    # print('S2 shape: ', s2.shape)
 
-    # print('w3: ', w3.shape)
-    # print('b3: ', b3.shape)
     l3 = np.matmul(w3, s2) + b3
     # last activation function should be softmax
-    # print('l3: ', l3.shape)
     s3 = softmax(l3)
     # we need to return everything so that we can do back propagation correctly.
     return l1, s1, l2, s2, l3, s3
@@ -93,8 +80,7 @@ print('w3: ', w3.shape)
 print('b1: ', b1.shape)
 print('b2: ', b2.shape)
 print('b3: ', b3.shape)"""
-# sx = forwardpropagation(input_in, w1, w2, w3, b1, b2, b3)
-# print(sx)  # up until here it works how I wanted it to
+
 
 
 

@@ -21,6 +21,7 @@ train_labels_e = one_hot(train_labels)
 weights1, weights2, weights3, bias1, bias2, bias3 = createNNetwork(p, 10)
 print(bias3.shape)
 
+
 def reverse_hot(L):
     # A function to return the actual value predicted.
     maxi = np.max(L)
@@ -48,7 +49,7 @@ def make_predictions(X, W1, b1, W2, b2, W3, b3):
 def test_prediction(index, W1, b1, W2, b2, W3, b3):
     current_image = test_data[:, index, None]
     prediction = make_predictions(test_data[:, index, None], W1, b1, W2, b2, W3, b3)
-    label = test_labels_e[index]
+    label = test_labels[index]
     print("Prediction: ", prediction)
     print("Label: ", label)
 
