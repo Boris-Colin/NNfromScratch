@@ -15,8 +15,6 @@ m, n = data.shape
 np.random.shuffle(data)
 
 test_data, train_data, test_labels, train_labels = data_treatment(data)
-test_labels_e = one_hot(test_labels)
-train_labels_e = one_hot(train_labels)
 
 weights1, weights2, weights3, bias1, bias2, bias3 = createNNetwork(p, 10)
 print(bias3.shape)
@@ -82,7 +80,7 @@ def training(training_data, training_labels, batch_size, learning_rate, num_epoc
     return W1, b1, W2, b2, W3, b3
 
 
-W1, b1, W2, b2, W3, b3 = training(train_data, train_labels_e,2, 0.005, 200,
+W1, b1, W2, b2, W3, b3 = training(train_data, train_labels,2, 0.01, 400,
                                   weights1, weights2, weights3, bias1, bias2, bias3)
 
 test_prediction(0, W1, b1, W2, b2, W3, b3)

@@ -1,5 +1,5 @@
 import numpy as np
-from data_treatement import m
+from data_treatement import m, one_hot
 
 
 def relu_deriv(Z):
@@ -7,8 +7,9 @@ def relu_deriv(Z):
     return np.where(Z > 0, 1, 0)
 
 
-def backward_prop(Z1, A1, Z2, A2, Z3, A3, w1, w2, w3, train_data, train_labels_e):
-    dZ3 = A3 - train_labels_e  # (output_size, m)
+def backward_prop(Z1, A1, Z2, A2, Z3, A3, w1, w2, w3, train_data, train_labels):
+    one_hot_data = one_hot(train_labels)
+    dZ3 = A3 - one_hot_data  # (output_size, m)
     dW3 = (1 / m) * np.dot(dZ3, A2.T)  # (output_size, hidden)
     db3 = (1 / m) * np.sum(dZ3, axis=1, keepdims=True)  # (output_size, 1)
 
